@@ -1,0 +1,22 @@
+{
+  "name": "ipx-server",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --hot app/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "h3": "^1.15.3",
+    "ipx": "^3.0.3",
+    "js-yaml": "^4.1.0",
+    "listhen": "^1.9.0"
+  }
+}

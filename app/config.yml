@@ -1,0 +1,10 @@
+ipxSettings:
+  httpStorage:
+    domains:
+      - "storage.agrego.id"
+      - "elearning-storage.founderplus.id"
+  fsDir: "./public"
+  imageCacheTTLSeconds: 31536000
+
+server:
+  port: 4321

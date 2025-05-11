@@ -1,5 +1,5 @@
 # ---- Builder Stage ----
-FROM oven/bun:1.1.12 AS builder
+FROM oven/bun:1.2.13-alpine AS builder
 WORKDIR /app
 
 COPY package.json bun.lock* tsconfig.json ./
@@ -8,7 +8,7 @@ COPY app ./app
 RUN bun install --frozen-lockfile
 
 # ---- Runtime Stage ----
-FROM oven/bun:1.1.12-alpine AS runtime
+FROM oven/bun:1.2.13-alpine AS runtime
 WORKDIR /app
 
 ENV NODE_ENV=production

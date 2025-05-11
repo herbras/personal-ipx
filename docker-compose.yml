@@ -13,8 +13,8 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-fs", "http://localhost:3000/health"]
-      interval: 30s
-      timeout: 5s
+      interval: 50s
+      timeout: 10s
       retries: 3
       start_period: 30s
 

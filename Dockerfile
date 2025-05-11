@@ -15,6 +15,11 @@ FROM oven/bun:1.2.13-alpine AS runtime
 WORKDIR /app
 
 ENV NODE_ENV=production
+
+USER root
+RUN apk update && apk add --no-cache curl
+WORKDIR /app
+
 RUN chown bun:bun /app
 USER bun
 

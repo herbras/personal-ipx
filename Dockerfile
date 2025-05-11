@@ -1,15 +1,25 @@
-FROM oven/bun:1.1.12
-
+# ---- Builder Stage ----
+FROM oven/bun:1.1.12 AS builder
 WORKDIR /app
+
+COPY package.json bun.lock* tsconfig.json ./
+COPY app ./app 
+
+RUN bun install --frozen-lockfile
+
+# ---- Runtime Stage ----
+FROM oven/bun:1.1.12-alpine AS runtime
+WORKDIR /app
+
+ENV NODE_ENV=production
 
 COPY bunfig.toml ./
 COPY app/config.yml ./config.yml
 
-COPY bun.lock* ./
-COPY package.json ./
-COPY tsconfig.json ./
-RUN bun install --frozen-lockfile
 
+COPY package.json bun.lock* ./
+
+RUN bun install --frozen-lockfile
 COPY app ./app/
 
 EXPOSE 4321
@@ -17,4 +27,5 @@ EXPOSE 4321
 HEALTHCHECK --interval=30s --timeout=5s \
   CMD curl -fs http://localhost:4321/health || exit 1
 
+USER bun
 CMD ["bun", "run", "app/index.ts"]

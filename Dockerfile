@@ -24,9 +24,9 @@ RUN bun install --production --frozen-lockfile
 COPY app/config.yml ./config.yml
 COPY --from=builder /app/dist ./dist
 
-EXPOSE 4321
+EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s \
-  CMD curl -fs http://localhost:4321/health || exit 1
+  CMD curl -fs http://localhost:3000/health || exit 1
 
 CMD ["bun", "dist/index.js"]

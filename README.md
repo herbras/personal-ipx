@@ -19,7 +19,7 @@ An image processing server powered by [IPX](https://github.com/unjs/ipx) and [Bu
 
 The application is configured through `app/config.yml`. You can adjust settings such as:
 
-*   `server.port`: The port the server listens on (default: `4321`).
+*   `server.port`: The port the server listens on (default: `3000`).
 *   `ipxSettings.fsDir`: The local directory for filesystem-based image sourcing (default: `./public`).
 *   `ipxSettings.httpStorage.domains`: A list of allowed domains for HTTP/HTTPS image sourcing.
 *   `ipxSettings.imageCacheTTLSeconds`: Time-to-live for cached images in seconds (default: 1 year).
@@ -27,7 +27,7 @@ The application is configured through `app/config.yml`. You can adjust settings 
 Example `app/config.yml`:
 ```yaml
 server:
-  port: 4321
+  port: 3000
 
 ipxSettings:
   fsDir: './public' # Relative to the app's root in the container
@@ -50,7 +50,7 @@ Make sure to create and populate the `public` directory inside the `app` folder 
     ```bash
     bun run dev
     ```
-    The server will be available at `http://localhost:4321` (or the port specified in `app/config.yml`).
+    The server will be available at `http://localhost:3000` (or the port specified in `app/config.yml`).
 
 ## Building for Production (Manual)
 
@@ -87,13 +87,13 @@ This is the recommended way to run the application in production.
     ```
     To run in detached mode, add the `-d` flag: `docker compose up -d`.
 
-The server will be available at `http://localhost:4321`.
+The server will be available at `http://localhost:3000`.
 
 ## Endpoints
 
-*   **IPX Image Processing:** `http://localhost:4321/_ipx/...`
+*   **IPX Image Processing:** `http://localhost:3000/_ipx/...`
     Refer to the [IPX documentation](https://ipx.nuxt.com/usage/nuxt-style-urls) for URL formats (e.g., `/_ipx/s_300x200/images/my-image.jpg`).
-*   **Health Check:** `http://localhost:4321/health`
+*   **Health Check:** `http://localhost:3000/health`
     Returns a JSON response indicating the server status. Example:
     ```json
     { "status": "ok", "timestamp": "2024-01-01T12:00:00.000Z" }

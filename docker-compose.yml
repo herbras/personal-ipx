@@ -1,10 +1,9 @@
 services:
   ipx-server:
-    build: .
-    image: my-ipx-server-app
+    image: registry.gitlab.com/handoyonoterakhir/ipx-server:latest
     container_name: ipx_server_prod
     ports:
-      - "4321:4321"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
     deploy:
@@ -13,8 +12,15 @@ services:
           memory: 150M
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-fs", "http://localhost:4321/health"]
+      test: ["CMD", "curl", "-fs", "http://localhost:3000/health"]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 30s
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 300 ipx_server_prod
+    restart: unless-stopped

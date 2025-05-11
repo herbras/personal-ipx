@@ -38,7 +38,7 @@ const DEFAULT_CONFIG: AppConfig = {
         imageCacheTTLSeconds: 30 * 24 * 3600,
     },
     server: {
-        port: 4321,
+        port: 3000,
     },
 };
 

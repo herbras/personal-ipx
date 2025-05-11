@@ -1,0 +1,38 @@
+stages:
+  - build_and_push
+
+variables:
+  IMAGE_TAG_LATEST: $CI_REGISTRY_IMAGE:latest
+  IMAGE_TAG_COMMIT: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+  IMAGE_TAG_BRANCH: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  IMAGE_TAG_MR: $CI_REGISTRY_IMAGE:mr-$CI_MERGE_REQUEST_IID
+
+build_and_push_docker_image:
+  stage: build_and_push
+  image: docker:24.0
+  services:
+    - docker:24.0-dind
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    - |
+      echo "Building Docker image..."
+      docker build -t $IMAGE_TAG_COMMIT -t $IMAGE_TAG_BRANCH .
+
+      echo "Tagging for latest if on main branch..."
+      if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
+        docker tag $IMAGE_TAG_COMMIT $IMAGE_TAG_LATEST
+      fi
+
+      echo "Pushing tags..."
+      docker push $IMAGE_TAG_COMMIT
+      docker push $IMAGE_TAG_BRANCH
+
+      if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
+        docker push $IMAGE_TAG_LATEST
+      fi
+
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: "$CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH"

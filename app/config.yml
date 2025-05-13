@@ -1,7 +1,8 @@
 ipxSettings:
   httpStorage:
     domains:
-      - "r2.sarbeh.com"
+      - "storage.agrego.id"
+      - "elearning-storage.founderplus.id"
   fsDir: "./public"
   imageCacheTTLSeconds: 31536000
 

@@ -1,8 +1,8 @@
 ipxSettings:
   httpStorage:
     domains:
-      - "storage.agrego.id"
-      - "elearning-storage.founderplus.id"
+      - "your-staging-domain.com"
+      - "your-domain.com"
   fsDir: "./public"
   imageCacheTTLSeconds: 31536000
 

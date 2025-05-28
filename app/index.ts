@@ -33,7 +33,7 @@ const DEFAULT_CONFIG: AppConfig = {
     ipxSettings: {
         fsDir: './public',
         httpStorage: {
-            domains: ['storage.agrego.id'],
+            domains: ['your-domain.com'],
         },
         imageCacheTTLSeconds: 30 * 24 * 3600,
     },

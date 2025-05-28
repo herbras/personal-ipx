@@ -30,11 +30,11 @@ server:
   port: 3000
 
 ipxSettings:
-  fsDir: './public' # Relative to the app's root in the container
+  fsDir: './public'
   httpStorage:
     domains:
       - 'your-image-storage-domain.com'
-  imageCacheTTLSeconds: 31536000 # 1 year
+  imageCacheTTLSeconds: 31536000
 ```
 Make sure to create and populate the `public` directory inside the `app` folder (e.g., `app/public/images/...`) if you intend to use `fsDir` for local file serving. This path is relative to the application's root *inside the container* (`/app`).
 
